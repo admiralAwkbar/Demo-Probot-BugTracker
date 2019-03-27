@@ -34,7 +34,7 @@ module.exports = app => {
         /// /////////////////////////////////
         // BugID was found in the PR body //
         /// /////////////////////////////////
-        const params = context.issue({ body: '**Success**, `BugID:` found in *Pull Request* body' })
+        const params = context.issue({ body: '**Success**! \n`BugID:` found in *Pull Request* body' })
         // Comment on the PR that BugID was found
         await context.github.issues.createComment(params)
 
@@ -53,7 +53,7 @@ module.exports = app => {
         // No BugID was found in the PR body //
         /// ////////////////////////////////////
         // Create message of failure
-        const params = context.issue({ body: '**ERROR!** No `BugID: XXXX` detected\n Please edit the *Pull Request* body to have reference to a `BugId: XXXX` to meet complience' })
+        const params = context.issue({ body: '**ERROR!** No `BugID: XXXX` detected\n Please edit the *Pull Request* body to have reference to a `BugId: XXXX` to meet complience\n *note:* `XXXX` can be any valid digit...' })
         // Comment on the PR that BugID was NOT found
         await context.github.issues.createComment(params)
 
