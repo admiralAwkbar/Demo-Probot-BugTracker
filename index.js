@@ -25,7 +25,7 @@ module.exports = app => {
       const body = context.payload.pull_request.body
       const sha = context.payload.pull_request.head.sha
       // Regex to look for bugid
-      const reg = /^BugId:\s?\d{4}$/m
+      const reg = /^bugid:\s?\d+$/mi
 
       // Run the regex agaisnt the PR body
       const hasBugId = reg.test(body)
@@ -34,7 +34,7 @@ module.exports = app => {
         /// /////////////////////////////////
         // BugID was found in the PR body //
         /// /////////////////////////////////
-        const params = context.issue({ body: 'BugID found in Pull Request' })
+        const params = context.issue({ body: '**Success**, `BugID:` found in *Pull Request* body' })
         // Comment on the PR that BugID was found
         await context.github.issues.createComment(params)
 
@@ -53,7 +53,7 @@ module.exports = app => {
         // No BugID was found in the PR body //
         /// ////////////////////////////////////
         // Create message of failure
-        const params = context.issue({ body: 'ERROR! No BugID detected' })
+        const params = context.issue({ body: '**ERROR!** No `BugID: XXXX` detected\n Please edit the *Pull Request* body to have reference to a `BugId: XXXX` to meet complience' })
         // Comment on the PR that BugID was NOT found
         await context.github.issues.createComment(params)
 
